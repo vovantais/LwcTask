@@ -7,7 +7,7 @@ export default class HeaderDream extends LightningElement {
 
     constructor() {
         super();
-        this.imgLogo =CAR_DREAM_LOGO + '/logo.png';
+        this.imgLogo = CAR_DREAM_LOGO + '/logo.png';
     }
-    
+
 }

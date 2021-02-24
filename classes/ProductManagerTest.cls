@@ -1,5 +1,5 @@
 @isTest
-public  class CardDreamControllerTest {
+public  class ProductManagerTest {
 
     @testSetup static void setup(){
 
@@ -10,15 +10,16 @@ public  class CardDreamControllerTest {
         prod.Price__c = 10000;
         prod.Year__c = Date.today();
         prod.Description__c = 'New car';
-        insert prod;
 
+        insert prod;
     }
 
     static testMethod void  getCarsTest(){
 
-        List<Product2> prod = CardDreamController.getCars();
+        String category = 'notAuto';
+        
+        List<Product2> prod = ProductManager.getByFamily(category);
 
-        System.assertEquals('New car', String.valueOf(prod[0].Description__c));
+        System.assertNotEquals(1,prod.size());
     }
-    
 }

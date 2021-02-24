@@ -5,41 +5,43 @@ import CAR_DREAM_IMG from '@salesforce/resourceUrl/dataImage';
 export default class ContentDream extends LightningElement {
 
     @api imgCar;
+    @api isOpen ;
+    @api ready;
+    @api value;
+    @api Key;
+    @api pageNumber;
+    @api imgUrl;
     @track data;
     @track copyData;
     @track parts;
-    @api isOpen ;
     @track selectCar;
-    @api ready;
-    @api value;
     @track currentPage;
-    @api Key;
-    @api pageNumber;
 
     constructor(data,currentPage) {
         super();
-        this.imgCar =CAR_DREAM_IMG +'/car.jpg';
-        this.data =data;
-        this.copyData =[];
-        this.parts=[];
-        this.isOpen =false;
+        this.imgCar = CAR_DREAM_IMG +'/car.jpg';
+        this.data = data;
+        this.copyData = [];
+        this.parts= [];
+        this.isOpen = false;
         this.ready = false;
-        this.value= 0;
-        this.currentPage =currentPage;
-        this.Key=Math.random() *100;
-        this.pageNumber =0;
+        this.value = 0;
+        this.currentPage = currentPage;
+        this.Key = Math.random() *100;
+        this.pageNumber = 0;
     }
-
 
     @wire(getCars) records({err,data}){
         if(data){
             this.data = data;
-            this.ready= !false;
+            this.ready = true;
             this.copyData = [...data];
             this.slicePagination();
-            this.currentPage = this.parts[0];
+            if(this.parts[0] !== null){
+                this.currentPage = this.parts[0];
+            }
         }else if (err){
-            this.data=undefined;
+            this.data = undefined;
         }
     }
 
@@ -50,36 +52,36 @@ export default class ContentDream extends LightningElement {
         rangeBullet.innerHTML = this.value;
         let bulletPosition = (this.value  / maxRangeSlider);
         rangeBullet.style.left = (bulletPosition * 330) + "px";
-        this.currentPage = this.copyData.filter(item => item.Price__c>=this.value);
+        this.currentPage = this.copyData.filter(item => item.Price__c >= this.value);
     }
 
     search(event){
-        let search =event.target.value.toLowerCase();
+        let search = event.target.value.toLowerCase();
         if (search.length > 0) {
             let reg = new RegExp(`${search}{0,}`);
-            this.currentPage =this.copyData.filter(item => reg.test(item.Model__c.toLowerCase()));
+            this.currentPage = this.copyData.filter(item => reg.test(item.Model__c.toLowerCase()));
         }
     }
 
     showCardItem(event){
-        const prodid =event.currentTarget.dataset.prodid;
-        let cars = this.data.filter(item=>item.Id===prodid);
+        const prodid = event.currentTarget.dataset.prodid;
+        let cars = this.data.filter(item => item.Id === prodid);
         if(cars) {
             this.selectCar = cars[0];
-            this.isOpen= !false;
+            this.isOpen = true;
         }
     }
 
     handleModalClick() {
-        if(!this.isOpen){
-            this.isOpen = !false;
+        if(this.isOpen){
+            this.isOpen = false;
         }else{
-            this.isOpen=false;
+            this.isOpen = true;
         }
     }
 
     slicePagination(){
-        const count =4;
+        const count = 4;
         for (let i = 0; i < this.data.length; i = i + count) {
             const [...newArray] = this.data;
             this.parts.push(newArray.splice(i, count));
@@ -100,7 +102,7 @@ export default class ContentDream extends LightningElement {
     }
 
     nextPage(){
-        if (this.pageNumber < this.parts.length-1) {
+        if (this.pageNumber < this.parts.length - 1) {
             this.currentPage = this.parts[++this.pageNumber];
             this.selectElement();
         }
@@ -108,11 +110,12 @@ export default class ContentDream extends LightningElement {
 
     selectElement(){
         const select = this.template.querySelectorAll('.selectPage');
-        for ( let i=0; i<select.length; i++){
+        for ( let i = 0; i < select.length; i++){
             if (select[i].classList.contains('active')){
                 select[i].classList.remove('active');
             }
         }
         select[this.pageNumber].classList.add('active');
     }
+
 }

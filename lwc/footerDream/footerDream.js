@@ -7,7 +7,7 @@ export default class FooterDream extends LightningElement {
 
     constructor() {
         super();
-        this.imgGit =GIT_HUB_LOGO;
+        this.imgGit = GIT_HUB_LOGO;
     }
-    
+
 }

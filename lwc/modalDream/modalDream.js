@@ -13,9 +13,13 @@ export default class ModalDream extends LightningElement {
         this.prodId = prodId;
         this.isOpen = false;
         this.product = product;
-        this.imgCar =CAR_DREAM_IMG +'/car.jpg';
+        this.imgCar = CAR_DREAM_IMG +'/car.jpg';
     }
     
+    get acceptedFormats() {
+        return ['.jpeg', '.png', '.gif' , '.jpg'];
+    }
+
     openModal(){
         this.dispatchEvent(new CustomEvent('modalclick'));
     }
@@ -25,12 +29,8 @@ export default class ModalDream extends LightningElement {
     }
 
     downloadImg(){
-        const element  =this.template.querySelector('.about-auto-content');
+        const element  = this.template.querySelector('.about-auto-content');
         this.prodId = element.getAttribute('data-prodid');
-    }
-
-    get acceptedFormats() {
-        return ['.jpeg', '.png', '.gif' , '.jpg'];
     }
 
 }

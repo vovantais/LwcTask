@@ -2,22 +2,22 @@
     <div class="lds-hourglass" if:false={ready}></div>
     <div if:true={ready} class='wrapper'>
         <div class="fiters">
-                    <div class="block">
-                        <div class='renge-price'>
-                                <div class="slidecontainer" >
-                                    <p>Price</p>
-                                    <span id="rs-bullet" class="rs-label" lwc:dom="manual"></span>
-                                    <input type="range" min="0" max="100000" value={value} class="slider" id="myRange" oninput={rangeValue}  />
-                                </div>
-                                <div class="box-minmax">
-                                    <span>0</span>
-                                    <span>100000</span>
-                                </div>
-                        </div>
-                    <div class='search'>
-                                <input type="text" name="searchText" placeholder="Search" class="search-input" oninput={search}  /> 
+            <div class="block">
+                <div class='renge-price'>
+                    <div class="slidecontainer" >
+                        <p>Price</p>
+                        <span id="rs-bullet" class="rs-label" lwc:dom="manual"></span>
+                        <input type="range" min="0" max="100000" value={value} class="slider" id="myRange" oninput={rangeValue}  />
+                    </div>
+                    <div class="box-minmax">
+                        <span>0</span>
+                        <span>100000</span>
                     </div>
                 </div>
+                 <div class='search'>
+                    <input type="text" name="searchText" placeholder="Search" class="search-input" oninput={search}  /> 
+                 </div>
+            </div>
         </div>
         <div class="lds-hourglass" if:false={ready}></div>
         <div class="card-wrap">
@@ -32,10 +32,9 @@
             </template>
         </div>
         <template if:true={isOpen}>
-                <c-modal-Dream
+            <c-modal-Dream
                 product ={selectCar}
-                onmodalclick={handleModalClick}
-                >
+                onmodalclick={handleModalClick}>
             </c-modal-Dream> 
         </template>
         <div class="pagination-wrap">
