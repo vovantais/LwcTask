@@ -1,0 +1,77 @@
+<template>
+    <div onclick={openModal}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse btn__close" title="Close"  onclick={closeModal}>X</button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Automobile</h2>
+                </header>
+               <div class="slds-modal__content slds-p-around_medium about-auto" id="modal-content-id-1" >
+                   <template if:true={showImg}>
+                       <img src={imgCar} alt="Car" class='downloadImage' />
+                   </template>
+                   <template if:false={showImg1}>
+                       <img src={imgData} alt="Car" class='downloadImage' />
+                   </template>
+                   <div class="about-auto-content" data-prodid='{product.Id}'>
+                       <p><strong>Brand:</strong>{product.Model__c} </p>
+                       <p><strong>Price:</strong> {product.Price__c} $</p>
+                       <p><strong>Release date:</strong> {product.Year__c}</p>
+                       <p><strong>Description:</strong> {product.Description__c}</p>
+                             <div class='change-img'>
+                               <p>Change image</p>
+                               <div class="file">
+                                   <div class="file__item">
+                                       <input id='fileImage' accept=".jpg .png .gif .jpeg" name='image' type='file' onchange={changeImage}  class='file__input'  />
+                                       <div class="file__btn">Preview</div>
+                                   </div>
+                                   <template if:true={showBtn}>
+                                       <div class="file__item">
+                                           <lightning-file-upload
+                                                   accept={acceptedFormats}
+                                                   record-id={product.Id}
+                                                   onclick={downloadImg}
+                                                   onuploadfinished={onloadImg}
+                                                   class='file__input'
+                                                   >
+                                           </lightning-file-upload>
+                                           <div class="file__btn">Upload</div>
+                                           <div class="file__preview"></div>
+                                       </div>
+                                   </template>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+    <!--                                               onuploadfinished={handleUploadFinished}-->
+<!--     todo message about error and fix -->
+<!--    <div onclick={openModalError}>-->
+<!--        <template if:true={isModalError}>-->
+<!--            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-02" aria-modal="true" aria-describedby="modal-content-id-2" class="slds-modal slds-fade-in-open">-->
+<!--                <div class="slds-modal__container">-->
+<!--                    <header class="slds-modal__header">-->
+<!--                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>-->
+<!--                            <lightning-icon icon-name="utility:close"-->
+<!--                                            alternative-text="close"-->
+<!--                                            variant="inverse"-->
+<!--                                            size="small" ></lightning-icon>-->
+<!--                            <span class="slds-assistive-text">Close</span>-->
+<!--                        </button>-->
+<!--                        <h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">Error</h2>-->
+<!--                    </header>-->
+<!--                    &lt;!&ndash; Modal/Popup Box LWC body starts here &ndash;&gt;-->
+<!--                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">-->
+<!--                        <p>-->
+<!--                            This format is prohibited select (jpeg , png , gif)-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </section>-->
+<!--            <div class="slds-backdrop slds-backdrop_open"></div>-->
+<!--        </template>-->
+<!--    </div>-->
+   </template>

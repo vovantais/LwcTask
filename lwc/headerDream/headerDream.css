@@ -1,0 +1,20 @@
+.header__wrapp{
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   background: #e3e3e3;
+}
+
+.header__wrapp img{
+   max-width: 100px;
+   margin: 15px;
+   object-fit: cover;
+ }
+
+ .header__wrapp h1 {
+   margin: 15px;
+   text-transform: uppercase;
+   letter-spacing: 1.2px;
+   font-size: 20px;
+   color: #847171; 
+ }
