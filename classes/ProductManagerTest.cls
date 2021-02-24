@@ -1,7 +1,8 @@
 @isTest
 public  class ProductManagerTest {
 
-    @testSetup static void setup(){
+    @testSetup
+    static void setup(){
 
         Product2 prod = new Product2();
         prod.Family = 'auto';
@@ -14,12 +15,20 @@ public  class ProductManagerTest {
         insert prod;
     }
 
-    static testMethod void  getCarsTest(){
+    static testMethod void  getCarsTestNegative(){
 
-        String category = 'notAuto';
-        
-        List<Product2> prod = ProductManager.getByFamily(category);
+        List<Product2> prod = ProductManager.getByFamily('notAuto');
 
-        System.assertNotEquals(1,prod.size());
+        System.assert(prod.isEmpty());
     }
+
+    static testMethod void  getCarsTestPositive(){
+
+        List<Product2> prod = ProductManager.getByFamily('auto');
+
+        System.assert(!prod.isEmpty());
+
+        System.assertEquals('New car', prod[0].Description__c);
+    }
+
 }

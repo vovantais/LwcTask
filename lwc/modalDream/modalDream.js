@@ -8,12 +8,12 @@ export default class ModalDream extends LightningElement {
     @api isOpen;
     @api product;
 
-    constructor(prodId,product) {
+    constructor() {
         super();
-        this.prodId = prodId;
+        this.prodId = null;
         this.isOpen = false;
-        this.product = product;
-        this.imgCar = CAR_DREAM_IMG +'/car.jpg';
+        this.product = [];
+        this.imgCar = CAR_DREAM_IMG + '/car.jpg';
     }
     
     get acceptedFormats() {

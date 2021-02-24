@@ -11,22 +11,23 @@ export default class ContentDream extends LightningElement {
     @api Key;
     @api pageNumber;
     @api imgUrl;
+
     @track data;
     @track copyData;
     @track parts;
     @track selectCar;
     @track currentPage;
 
-    constructor(data,currentPage) {
+    constructor() {
         super();
         this.imgCar = CAR_DREAM_IMG +'/car.jpg';
-        this.data = data;
+        this.data = [];
         this.copyData = [];
         this.parts= [];
         this.isOpen = false;
         this.ready = false;
         this.value = 0;
-        this.currentPage = currentPage;
+        this.currentPage = [];
         this.Key = Math.random() *100;
         this.pageNumber = 0;
     }

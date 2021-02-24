@@ -1,7 +1,8 @@
 @isTest
 public  class CardDreamControllerTest {
 
-    @testSetup static void setup(){
+    @testSetup 
+    static void setup(){
 
         Product2 prod = new Product2();
         prod.Family = 'auto';
@@ -10,15 +11,17 @@ public  class CardDreamControllerTest {
         prod.Price__c = 10000;
         prod.Year__c = Date.today();
         prod.Description__c = 'New car';
-        insert prod;
 
+        insert prod;
     }
 
     static testMethod void  getCarsTest(){
 
         List<Product2> prod = CardDreamController.getCars();
 
-        System.assertEquals('New car', String.valueOf(prod[0].Description__c));
+        System.assert(!prod.isEmpty());
+        
+        System.assertEquals('New car',prod[0].Description__c);
     }
     
 }
