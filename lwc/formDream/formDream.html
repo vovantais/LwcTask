@@ -1,24 +1,25 @@
 <template>
-    <div class='wrapper'>
-        <h2 class='title'>contact us</h2>
-        <form class='form-info' action="https://webto.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8" method="POST">
-            <input type=hidden name="orgid" value="00D5g000000IZKY">
-            <input type=hidden name="retURL" value="https://cardreams-developer-edition.ap24.force.com/s/carddreamlwc">
-            <p>Email</p>
-            <input  id="email"  name="email"  type="email" placeholder="Enter your email" require  class='form-email' />
-            <p>Case Reason</p>
-            <select  id="reason" name="reason" require class="form-select">
-                <option value="Installation">Installation</option>
-                <option value="Equipment Complexity">Equipment Complexity</option>
-                <option value="Performance">Performance</option>
-                <option value="Breakdown">Breakdown</option>
-                <option value="Equipment Design">Equipment Design</option>
-                <option value="Feedback">Feedback</option>
-                <option value="Other">Other</option>
-            </select><br> 
-            <p>Description</p>
-            <textarea class='form-description' name="description" require></textarea>    
-            <button class="btn">Submit</button>
-        </form>
-    </div>
+	<div class='wrapper'>
+		<h2 class='title'>contact us</h2>
+		<form class='form-info' action="https://webto.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8"
+			method="POST">
+			<input type=hidden name="orgid" value="00D5g000000IZKY">
+			<input type=hidden name="retURL" value="https://cardreams-developer-edition.ap24.force.com/s/carddreamlwc">
+			<p>Email</p>
+			<input id="email" name="email" type="email" placeholder="Enter your email" require class='form-email' />
+			<p>Case Reason</p>
+			<select id="reason" name="reason" require class="form-select">
+				<option value="Installation">Installation</option>
+				<option value="Equipment Complexity">Equipment Complexity</option>
+				<option value="Performance">Performance</option>
+				<option value="Breakdown">Breakdown</option>
+				<option value="Equipment Design">Equipment Design</option>
+				<option value="Feedback">Feedback</option>
+				<option value="Other">Other</option>
+			</select><br>
+			<p>Description</p>
+			<textarea class='form-description' name="description" require></textarea>
+			<button class="btn">Submit</button>
+		</form>
+	</div>
 </template>

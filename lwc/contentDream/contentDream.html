@@ -1,50 +1,50 @@
 <template>
-    <div class="lds-hourglass" if:false={ready}></div>
-    <div if:true={ready} class='wrapper'>
-        <div class="fiters">
-            <div class="block">
-                <div class='renge-price'>
-                    <div class="slidecontainer" >
-                        <p>Price</p>
-                        <span id="rs-bullet" class="rs-label" lwc:dom="manual"></span>
-                        <input type="range" min="0" max="100000" value={value} class="slider" id="myRange" oninput={rangeValue}  />
-                    </div>
-                    <div class="box-minmax">
-                        <span>0</span>
-                        <span>100000</span>
-                    </div>
-                </div>
-                 <div class='search'>
-                    <input type="text" name="searchText" placeholder="Search" class="search-input" oninput={search}  /> 
-                 </div>
-            </div>
-        </div>
-        <div class="lds-hourglass" if:false={ready}></div>
-        <div class="card-wrap">
-            <template for:each={currentPage} for:item="product" if:true={ready}>
-                    <div key={product.Id} class="card__car" >
-                        <div class='card__item' data-prodid='{product.Id}' onclick={showCardItem}>
-                            <img src={imgCar} alt="car">
-                            <p>{product.Model__c}</p>
-                            <p>{product.Price__c} $</p>
-                        </div>
-                    </div>
-            </template>
-        </div>
-        <template if:true={isOpen}>
-            <c-modal-Dream
-                product ={selectCar}
-                onmodalclick={handleModalClick}>
-            </c-modal-Dream> 
-        </template>
-        <div class="pagination-wrap">
-            <div class="pagination">
-                <a href="#" class='prevPage' onclick={prevPage}>&laquo;</a>
-                <template for:each={parts} for:item="page" for:index="index">
-                    <a href="#" key={Key} class="selectPage"  onclick={selectPage}>{index}</a>
-                </template>
-                <a href="#" class='nextPage' onclick={nextPage}>&raquo;</a>
-            </div>
-        </div>
-    </div>
+	<div class="lds-hourglass" if:false={ready}></div>
+	<div if:true={ready} class='wrapper'>
+		<div class="fiters">
+			<div class="block">
+				<div class='renge-price'>
+					<div class="slidecontainer">
+						<p>Price</p>
+						<span id="rs-bullet" class="rs-label" lwc:dom="manual"></span>
+						<input type="range" min="0" max="100000" value={value} class="slider" id="myRange"
+							oninput={rangeValue} />
+					</div>
+					<div class="box-minmax">
+						<span>0</span>
+						<span>100000</span>
+					</div>
+				</div>
+				<div class='search'>
+					<input type="text" name="searchText" placeholder="Search" class="search-input" oninput={search} />
+				</div>
+			</div>
+		</div>
+		<div class="lds-hourglass" if:false={ready}></div>
+		<div class="card-wrap">
+			<template for:each={currentPage} for:item="product" if:true={ready}>
+				<div key={product.Id} class="card__car">
+					<div class='card__item' data-prodid='{product.Id}' onclick={showCardItem}>
+						<img src={product.urlAttach__c} alt="car">
+						<p>{product.Model__c}</p>
+						<p>{product.Price__c} $</p>
+					</div>
+				</div>
+			</template>
+		</div>
+		<template if:true={isOpen}>
+			<c-modal-Dream product={selectCar} onmodalclick={handleModalClick}>
+			</c-modal-Dream>
+		</template>
+		<div class="pagination-wrap">
+			<div class="pagination">
+				<a href="#" class='prevPage' onclick={prevPage}>&laquo;</a>
+				<template iterator:it={pages}>
+					<a if:true={it.first} href="#" key={Key} class="selectPage active" onclick={selectPage}>{it.value}</a>
+					<a if:false={it.first} class="selectPage" href="#" key={Key} onclick={selectPage}>{it.value}</a>
+				</template>
+				<a href="#" class='nextPage' onclick={nextPage}>&raquo;</a>
+			</div>
+		</div>
+	</div>
 </template>

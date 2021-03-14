@@ -1,16 +1,17 @@
 import { LightningElement,track,wire,api } from 'lwc';
-import getCars from '@salesforce/apex/CardDreamController.getCars';
-import CAR_DREAM_IMG from '@salesforce/resourceUrl/dataImage';
+import getCars from '@salesforce/apex/CardDreamController.getCars'
 
 export default class ContentDream extends LightningElement {
 
-    @api imgCar;
     @api isOpen ;
     @api ready;
     @api value;
     @api Key;
     @api pageNumber;
     @api imgUrl;
+    @api rangeBullet;
+    @api flag;
+    @api pages;
 
     @track data;
     @track copyData;
@@ -20,26 +21,29 @@ export default class ContentDream extends LightningElement {
 
     constructor() {
         super();
-        this.imgCar = CAR_DREAM_IMG +'/car.jpg';
         this.data = [];
         this.copyData = [];
-        this.parts= [];
+        this.parts = [];
         this.isOpen = false;
         this.ready = false;
         this.value = 0;
         this.currentPage = [];
-        this.Key = Math.random() *100;
+        this.Key = Math.random() * 100;
         this.pageNumber = 0;
+        this.rangeBullet = '';
+        this.flag = false;
+        this.pages = [];
     }
 
     @wire(getCars) records({err,data}){
         if(data){
             this.data = data;
-            this.ready = true;
+            this.ready= true;
             this.copyData = [...data];
             this.slicePagination();
-            if(this.parts[0] !== null){
+            if (this.parts[0] !== null){
                 this.currentPage = this.parts[0];
+                this.countPages();
             }
         }else if (err){
             this.data = undefined;
@@ -49,11 +53,11 @@ export default class ContentDream extends LightningElement {
     rangeValue(event){
         this.value = event.target.value;
         const maxRangeSlider = '100000';
-        const rangeBullet = this.template.querySelector('.rs-label');
-        rangeBullet.innerHTML = this.value;
+        this.rangeBullet = this.template.querySelector('.rs-label');
+        this.rangeBullet.innerHTML = this.value;
         let bulletPosition = (this.value  / maxRangeSlider);
-        rangeBullet.style.left = (bulletPosition * 330) + "px";
-        this.currentPage = this.copyData.filter(item => item.Price__c >= this.value);
+        this.rangeBullet.style.left = (bulletPosition * 330) + "px";
+        this.currentPage = this.copyData.filter(item => item.Price__c>=this.value);
     }
 
     search(event){
@@ -66,7 +70,7 @@ export default class ContentDream extends LightningElement {
 
     showCardItem(event){
         const prodid = event.currentTarget.dataset.prodid;
-        let cars = this.data.filter(item => item.Id === prodid);
+        let cars = this.data.filter(item=>item.Id === prodid);
         if(cars) {
             this.selectCar = cars[0];
             this.isOpen = true;
@@ -74,9 +78,13 @@ export default class ContentDream extends LightningElement {
     }
 
     handleModalClick() {
-        if(this.isOpen){
+        if (this.isOpen){
             this.isOpen = false;
-        }else{
+            if (this.flag){
+                location.reload();
+            }
+            this.flag = true;
+        } else{
             this.isOpen = true;
         }
     }
@@ -91,7 +99,12 @@ export default class ContentDream extends LightningElement {
 
     selectPage(event){
         this.pageNumber = +event.target.textContent;
-        this.currentPage = this.parts[this.pageNumber];
+        this.currentPage = this.parts[--this.pageNumber];
+        if (this.value !== 0){
+            this.value = 0;
+            this.rangeBullet.innerHTML = '';
+        }
+        this.template.querySelector('.search-input').value = '';
         this.selectElement();
     }
 
@@ -103,7 +116,7 @@ export default class ContentDream extends LightningElement {
     }
 
     nextPage(){
-        if (this.pageNumber < this.parts.length - 1) {
+        if (this.pageNumber < this.parts.length-1) {
             this.currentPage = this.parts[++this.pageNumber];
             this.selectElement();
         }
@@ -119,4 +132,9 @@ export default class ContentDream extends LightningElement {
         select[this.pageNumber].classList.add('active');
     }
 
+    countPages(){
+        for (let i = 1; i < this.parts[0].length; i++){
+            this.pages.push(i);
+        }
+    }
 }
